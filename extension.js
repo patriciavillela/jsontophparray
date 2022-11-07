@@ -16,7 +16,6 @@ function activate(context) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "jsontophparray" is now active!');
 	let format = vscode.commands.registerCommand('jsontophparray.jsonToPHPArray', function() {
-		vscode.window.showInformationMessage('Salve galera!');
 		const selectedText = editor.document.getText(editor.selection);
 		try {
 			const jsonObject = JSON.parse(selectedText);
