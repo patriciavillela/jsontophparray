@@ -21,7 +21,9 @@ function activate(context) {
 		const selectedText = editor.document.getText(editor.selection);
 		try {
 			const jsonObject = JSON.parse(selectedText);
-			const converted = formatJSONtoPHPArray(jsonObject);
+			const firstline = editor.document.lineAt(editor.selection.start.line);
+			const startlevel = (firstline["_text"].match(/\t/g) || []).length + 1;
+			const converted = formatJSONtoPHPArray(jsonObject, startlevel);
 			editor.edit(editBuilder => {
 				editBuilder.replace(
 					new vscode.Range(
@@ -72,7 +74,7 @@ function formatJSONtoPHPArray(obj, level = 1) {
 }
 
 function indent(level) {
-	return " ".repeat(level * 4);
+	return "\t".repeat(level);
 }
 
 // This method is called when your extension is deactivated

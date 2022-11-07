@@ -2,6 +2,9 @@
   "name": "jsontophparray",
   "displayName": "JSONtoPHPArray",
   "description": "Converts JSON to PHP Array",
+	"repository": {
+		"url": "https://github.com/patriciavillela/jsontophparray.git"
+	},
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.73.0"
