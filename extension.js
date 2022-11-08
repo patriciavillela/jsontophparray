@@ -1,8 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
-const editor = vscode.window.activeTextEditor;
-const writer = vscode.window.writer;
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -16,6 +14,7 @@ function activate(context) {
 	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "jsontophparray" is now active!');
 	let format = vscode.commands.registerCommand('jsontophparray.jsonToPHPArray', function() {
+		const editor = vscode.window.activeTextEditor;
 		const selectedText = editor.document.getText(editor.selection);
 		try {
 			const jsonObject = JSON.parse(selectedText);
@@ -47,14 +46,24 @@ function formatJSONtoPHPArray(obj, level = 1) {
 	const keys = Object.keys(obj);
 	keys.forEach((key, index) => {
 		let string;
-		if(obj[key].constructor.name === "Object") {
+		if(!obj[key]) {
+			string = "null";
+		} else if(obj[key].constructor.name === "Object") {
 			string = formatJSONtoPHPArray(obj[key], level + 1);
 		} else if(obj[key].constructor.name === "Array") {
-			PHPArray += indent(level) + "'" + key + "' => " + JSON.stringify(obj[key]);
-			if(keys[index + 1]) {
-				PHPArray += ",";
-			}
-			return;
+			// obj[key].forEach((subkey, index) => {
+			// 	PHPArray += formatJSONtoPHPArray(subkey, level + 1);
+			// 	if(obj[key][index + 1]) {
+			// 		PHPArray += ",";
+			// 	}
+			// 	PHPArray += "\n";
+			// });
+			// PHPArray += indent(level) + "'" + key + "' => " + JSON.stringify(obj[key]);
+			// if(keys[index + 1]) {
+			// 	PHPArray += ",";
+			// }
+			string = formatJSONtoPHPArray(obj[key], level + 1);
+			// return;
 		} else if(obj[key].constructor.name === "Number") {
 			string = obj[key];
 		} else if(obj[key].constructor.name === "String") {
@@ -64,7 +73,11 @@ function formatJSONtoPHPArray(obj, level = 1) {
 		} else {
 			throw new Error('Invalid JSON');
 		}
-		PHPArray += indent(level) + "'" + key + "' => " + string;
+		if(!isNaN(key)) {
+			PHPArray += indent(level) + string;
+		} else {
+			PHPArray += indent(level) + "'" + key + "' => " + string;
+		}
 		if(keys[index + 1]) {
 			PHPArray += ",";
 		}
@@ -82,5 +95,6 @@ function deactivate() {}
 
 module.exports = {
 	activate,
-	deactivate
+	deactivate,
+	formatJSONtoPHPArray
 }
