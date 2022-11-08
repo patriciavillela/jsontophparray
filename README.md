@@ -9,7 +9,10 @@ Select the JSON string to be converted and run the "JSON to PHP Array" command (
 ![usage](./animations/usage.gif)
 
 ## Release Notes
+### 0.0.2beta
 
-### 1.0.0beta
+Fixes to support every example in https://json.org/example.html
+
+### 0.0.1beta
 
 Initial release of the JSON to PHP Array converter.
