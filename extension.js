@@ -59,6 +59,8 @@ function formatJSONtoPHPArray(obj, level = 1) {
 			string = obj[key];
 		} else if(obj[key].constructor.name === "String") {
 			string = "'" + obj[key] + "'";
+		} else if(obj[key].constructor.name === "Boolean") {
+			string = obj[key];
 		} else {
 			throw new Error('Invalid JSON');
 		}

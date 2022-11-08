@@ -4,9 +4,9 @@
 
 Formats JSON to PHP Array.
 
-![usage](./animations/usage.gif)
+Select the JSON string to be converted and run the "JSON to PHP Array" command (run Ctrl+Shift+P on Windows/Linux).
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+![usage](./animations/usage.gif)
 
 ## Release Notes
 
