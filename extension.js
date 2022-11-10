@@ -46,24 +46,12 @@ function formatJSONtoPHPArray(obj, level = 1) {
 	const keys = Object.keys(obj);
 	keys.forEach((key, index) => {
 		let string;
-		if(!obj[key]) {
+		if(obj[key] === null || obj[key] === undefined) {
 			string = "null";
 		} else if(obj[key].constructor.name === "Object") {
 			string = formatJSONtoPHPArray(obj[key], level + 1);
 		} else if(obj[key].constructor.name === "Array") {
-			// obj[key].forEach((subkey, index) => {
-			// 	PHPArray += formatJSONtoPHPArray(subkey, level + 1);
-			// 	if(obj[key][index + 1]) {
-			// 		PHPArray += ",";
-			// 	}
-			// 	PHPArray += "\n";
-			// });
-			// PHPArray += indent(level) + "'" + key + "' => " + JSON.stringify(obj[key]);
-			// if(keys[index + 1]) {
-			// 	PHPArray += ",";
-			// }
 			string = formatJSONtoPHPArray(obj[key], level + 1);
-			// return;
 		} else if(obj[key].constructor.name === "Number") {
 			string = obj[key];
 		} else if(obj[key].constructor.name === "String") {
